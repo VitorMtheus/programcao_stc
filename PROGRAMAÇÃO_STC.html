@@ -1,0 +1,183 @@
+﻿  <header class='appbar'>
+    <svg width='28' height='28' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M13 2L3 14h7l-1 8 10-12h-7l1-8z' fill='#fff'/></svg>
+    <div><div class='title'>PROGRAMAÇÃO_STC — UTD MOSSORÓ</div>
+    <div id='metaUpdate' style='font-size:12px'>Última atualização: 10/08/2026 17:39:38</div></div>
+    <a href='../UTD_MOSSORO_PORTAL/index_matriz.html' class='home-top' title='Voltar ao Portal'>&#127968; Portal</a>
+  </header>
+  <style>
+    .home-top{margin-left:auto;background:#0b8457;color:#fff;text-decoration:none;font-weight:800;border-radius:10px;padding:6px 10px;display:inline-flex;align-items:center;gap:6px}
+    .home-top:hover{filter:brightness(1.05)}
+    body{font-family:Inter,Arial;background:#f4f6f8;margin:0;color:#111;font-size:15px}
+    .app{max-width:980px;margin:auto;padding:14px}
+    header.appbar{background:#0b8457;color:#fff;padding:14px;border-radius:10px;display:flex;gap:10px;align-items:center}
+    .title{font-size:18px;font-weight:700}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .controls select,.controls input{padding:10px 12px;border-radius:12px;border:1px solid #ccc;font-size:15px}
+    .cardsWrap{display:grid;grid-template-columns:1fr;gap:16px;padding:10px 0}
+    .card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,.1);display:flex;flex-direction:column;gap:10px;font-size:15px}
+    .addr{font-size:14px;color:#333;line-height:1.4}
+    .fields{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{background:#eef3f2;padding:7px 10px;border-radius:12px;font-size:13px}
+    .btn{padding:7px 12px;border-radius:10px;font-weight:600;border:none;cursor:pointer;font-size:14px}
+    .btn.ghost{background:#fff;border:1px solid #0b8457;color:#0b8457}
+    .btn.primary,.btn:not(.ghost){background:#0b8457;color:#fff}
+    .dateStatus.due{background:#e74c3c;color:#fff;padding:5px 10px;border-radius:8px;font-size:13px}
+    .dateStatus.next{background:#f2c94c;color:#000;padding:5px 10px;border-radius:8px;font-size:13px}
+    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:1000}
+    .modal-content{background:#fff;padding:20px;border-radius:10px;max-width:460px;width:94%;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+    .modal h3{margin-top:0;color:#0b8457}
+    .modal p{margin:6px 0;font-size:14px}
+  </style>
+</head>
+<body>
+<div class='app'>
+  <div class='controls'>
+    <select id='filtroEquipe'><option value=''>Todas as equipes</option></select>
+    <input id='qSearch' type='search' placeholder='Pesquisar: nota, cidade...' />
+    <div class='count' id='contadorTotal'>Total: 0</div>
+  </div>
+  <div id='cards' class='cardsWrap'></div>
+  <div id='empty' style='display:none;text-align:center;color:#888;padding:20px'>Nenhuma nota encontrada.</div>
+  <div style='display:none'><table id='tblNotas'><tbody>
+<tr data-equipe='STCARB0001' data-nota='4502064181' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='MORRO PINTADO               ' data-rua='PO MORRO PINTADO' data-carga='47' data-de='TRIF' data-para='TRIF' data-cabocliente='16XLPE ou 25PVC' data-cabocosern='35mm AL' data-disjuntor='80(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502071092' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='CRISTOVAO                   ' data-rua='PO CRISTOVAO' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502068328' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='REDONDA                     ' data-rua='PO REDONDA' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502064432' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='ILHA                        ' data-rua='RUA ANTONIO LOPES SOBRINHO' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502071621' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='CENTRO                      ' data-rua='TV SAO RAIMUNDO' data-carga='5' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502066979' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='PREFEITO ALFREDO REBOUCAS   ' data-rua='RUA RUDSON LIMA DE GOIS' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502061368' data-tipo='Ligação Nova BT MUC                     ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='NORDESTE                    ' data-rua='RUA FORTALEZA' data-carga='' data-de='MONO' data-para='MONO' data-cabocliente='' data-cabocosern='16mm AL' data-disjuntor='63(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601594613' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='CENTRO                      ' data-rua='RUA LUIZ AUGOSTINHO SOBRINHO' data-carga='6' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601596140' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='CENTRO                      ' data-rua='RUA DESEMBARGADOR SILVERIO' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601588970' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='CENTRO                      ' data-rua='RUA JOAO PESSOA' data-carga='8' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601596139' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='DEDINHOS                    ' data-rua='RUA DEDINHOS' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601594623' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='UPANEMA                     ' data-rua='AV JOSE BRASIl' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601582493' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='SUSSUARANA                  ' data-rua='SI SUSSUARANA' data-carga='2,17' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4601596137' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='CENTRO                      ' data-rua='TV DOS CALAFATES' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCARB0001' data-nota='4502069808' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='AREIA BRANCA              ' data-bairro='DEDINHOS                    ' data-rua='RUA DEDINHOS' data-carga='8' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502033370' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='BARAUNA                   ' data-bairro='RECREIO                     ' data-rua='AG RECREIO' data-carga='16' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='32(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502069833' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='BARAUNA                   ' data-bairro='MAISA                       ' data-rua='AG VILA NOVA' data-carga='25' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4601574313' data-tipo='Mod BT Aumento Potência GD Micro        ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='ZONA RURAL                  ' data-rua='SI NOVA ESPERANCA' data-carga='40,1' data-de='TRIF' data-para='TRIF' data-cabocliente='16XLPE ou 25PVC' data-cabocosern='35mm AL' data-disjuntor='80(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502071696' data-tipo='Ligação Nova BT                         ' data-venc='12/08/2026' data-cidade='MOSSORO                   ' data-bairro='ZONA RURAL                  ' data-rua='PO SAO CRISTOVAO' data-carga='9' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502069840' data-tipo='Ligação Nova BT                         ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='CINDERELA                   ' data-rua='RUA NICACIO MONTEIRO DE GOIS' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502040415' data-tipo='Ligação Nova BT                         ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='CENTRO                      ' data-rua='RUA ANIBAL MACIEL' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502045998' data-tipo='Ligação Nova BT                         ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='ZONA RURAL                  ' data-rua='AG BOM SUCESSO DOS MILITARES' data-carga='20' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='32(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4502069850' data-tipo='Ligação Nova BT                         ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='CENTRO                      ' data-rua='RUA SALVADOR VIANA GOMES' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4601599548' data-tipo='Mod BT Aumento Potência GD Micro        ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='ZONA RURAL                  ' data-rua='SI TOCA DA RAPOSA' data-carga='50' data-de='TRIF' data-para='TRIF' data-cabocliente='16XLPE ou 25PVC' data-cabocosern='35mm AL' data-disjuntor='80(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0002' data-nota='4601594635' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='CENTRO                      ' data-rua='RUA SEBASTIAO HERMINIO DE SANTANA' data-carga='3,77' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4601599535' data-tipo='Alteração Contratual                    ' data-venc='11/08/2026' data-cidade='TIBAU                     ' data-bairro='CENTRO                      ' data-rua='RUA RAIMUNDO SOBRINHO' data-carga='13' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='16mm AL' data-disjuntor='63(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4502071604' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='TIBAU                     ' data-bairro='GANGORRA                    ' data-rua='RUA JOAO PITEL' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4502069141' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='TIBAU                     ' data-bairro='JARDIM DE ALICIA            ' data-rua='RUA LUZIA RODRIGUES DO NASCIMENTO' data-carga='10' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4502071648' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='TIBAU                     ' data-bairro='CENTRO                      ' data-rua='RUA DA BALEIA' data-carga='20' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='32(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4502069803' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='TIBAU                     ' data-bairro='PRAIA DAS EMANOELAS         ' data-rua='AV PREFEITO DEHON CAENGA' data-carga='16' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='32(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4502069158' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='TIBAU                     ' data-bairro='JARDIM DE ALICIA            ' data-rua='AV TEREZINHA LIMA PESSOA' data-carga='1' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4601577891' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='MAISA                       ' data-rua='AG APODI APAMA' data-carga='3,3' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4502066464' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='TERRA PROMETIDA             ' data-rua='RUA QUATRO' data-carga='9' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4601584847' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='12/08/2026' data-cidade='MOSSORO                   ' data-bairro='MAISA                       ' data-rua='VI UNIDADE RESIDENCIAL' data-carga='6' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0003' data-nota='4601584775' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='12/08/2026' data-cidade='BARAUNA                   ' data-bairro='MAISA                       ' data-rua='AG VILA NOVA' data-carga='25' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4601587202' data-tipo='Alteração Contratual                    ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='NOVA BETANIA                ' data-rua='RUA DUODECIMO ROSADO' data-carga='60' data-de='TRIF' data-para='TRIF' data-cabocliente='25XLPE ou 35PVC' data-cabocosern='35mm AL' data-disjuntor='100(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502070619' data-tipo='Ligação Nova BT                         ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='BELA VISTA                  ' data-rua='AV CONTABILISTA FERNANDO VICTOR DE MELO' data-carga='5,55' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4601599528' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='BELA VISTA                  ' data-rua='RUA CONDE DE CARAPEBUS' data-carga='16' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='32(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4601588228' data-tipo='Modificação BT - Conexão GD Micro       ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='NOVA BETANIA                ' data-rua='AV JOAO DA ESCOSSIA' data-carga='34' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='16mm AL' data-disjuntor='63(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502069820' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='CENTRO                      ' data-rua='RUA DESEMBARGADOR DIONISIO FILGUEIRA' data-carga='9' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502070189' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='CENTRO                      ' data-rua='PC GETULIO VARGAS' data-carga='' data-de='MONO' data-para='MONO' data-cabocliente='' data-cabocosern='16mm AL' data-disjuntor='63(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502066964' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='DOZE ANOS                   ' data-rua='RUA MANOEL NEGREIROS' data-carga='2,2' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502066975' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='NOVA BETANIA                ' data-rua='RUA GILBERTO MARCELINO SOBRINHO' data-carga='9' data-de='TRIF' data-para='TRIF' data-cabocliente='' data-cabocosern='10mm AL' data-disjuntor='32(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502070627' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='CENTRO                      ' data-rua='RUA CORONEL GURGEL' data-carga='9' data-de='MONO' data-para='MONO' data-cabocliente='N/A' data-cabocosern='10mm AL' data-disjuntor='40(A)' data-medidor=''></tr>
+<tr data-equipe='STCMSO0005' data-nota='4502070185' data-tipo='Reativação BT                           ' data-venc='11/08/2026' data-cidade='MOSSORO                   ' data-bairro='NOVA BETANIA                ' data-rua='RUA BIANOR DO LAGO CAMARA' data-carga='41,5' data-de='TRIF' data-para='TRIF' data-cabocliente='16XLPE ou 25PVC' data-cabocosern='35mm AL' data-disjuntor='80(A)' data-medidor=''></tr>
+
+  </tbody></table></div>
+  <script>
+    function textOr(v){ return v?String(v).trim():''; }
+    function parseDateFriendly(s){
+      if(!s) return {cls:'',label:''};
+      var p = s.split('/'); if(p.length!=3) return {cls:'',label:s};
+      var d = new Date(parseInt(p[2],10), parseInt(p[1],10)-1, parseInt(p[0],10));
+      var today = new Date(); today.setHours(0,0,0,0);
+      var diff = Math.round((d - today)/(1000*60*60*24));
+      if(diff===0) return {cls:'due',label:'Hoje - '+s};
+      if(diff===1) return {cls:'next',label:'Amanhã - '+s};
+      return {cls:'',label:s};
+    }
+    function buildCards(){
+      var rows = document.querySelectorAll('#tblNotas tbody tr');
+      var cards = document.getElementById('cards');
+      var filtro = document.getElementById('filtroEquipe');
+      var search = document.getElementById('qSearch');
+      var contador = document.getElementById('contadorTotal');
+      var data = [];
+      rows.forEach(function(tr){
+        var d = tr.dataset;
+        data.push({
+          equipe: d.equipe || '', nota: d.nota || '', tipo: d.tipo || '', venc: d.venc || '', cidade: d.cidade || '', bairro: d.bairro || '', rua: d.rua || '', carga: d.carga || '', de: d.de || '', para: d.para || '', cabocliente: d.cabocliente || '', cabocosern: d.cabocosern || '', disjuntor: d.disjuntor || '', medidor: d.medidor || ''
+        });
+      });
+      var eqs = Array.from(new Set(data.map(function(x){return x.equipe;})).values()).filter(function(x){return x && x.trim()!==''}).sort();
+      eqs.forEach(function(e){ var o = document.createElement('option'); o.value = e; o.textContent = e; filtro.appendChild(o); });
+      function render(){
+        cards.innerHTML = '';
+        var q = (search.value||'').toLowerCase();
+        var sel = filtro.value;
+        data.forEach(function(it){
+          if(sel && it.equipe !== sel) return;
+          var hay = (it.nota + ' ' + it.tipo + ' ' + it.cidade + ' ' + it.rua + ' ' + it.bairro + ' ' + it.equipe).toLowerCase();
+          if(q && hay.indexOf(q) === -1) return;
+          var d = parseDateFriendly(it.venc);
+          var card = document.createElement('div'); card.className = 'card';
+          var top = document.createElement('div'); top.innerHTML = '<b>' + (it.nota||'—') + '</b><br><small>' + (it.tipo||'') + '</small>';
+          var addr = document.createElement('div'); addr.className = 'addr'; addr.innerHTML = '<strong>' + (it.cidade||'') + '</strong> • ' + (it.bairro||'') + '<br>' + (it.rua||'');
+          var fields = document.createElement('div'); fields.className = 'fields';
+          var equepill = document.createElement('div'); equepill.className='pill'; equepill.textContent='Equipe: ' + (it.equipe||'—');
+          var deparpill = document.createElement('div'); deparpill.className='pill'; deparpill.textContent = (it.de||'') + ' > ' + (it.para||'');
+          var cargapill = document.createElement('div'); cargapill.className='pill'; cargapill.textContent = 'Carga: ' + (it.carga||'—');
+          fields.appendChild(equepill); fields.appendChild(deparpill); fields.appendChild(cargapill);
+          var foot = document.createElement('div'); foot.className = 'cardFooter';
+          var dt = document.createElement('div'); dt.className = 'dateStatus ' + (d.cls||''); dt.textContent = d.label || it.venc || 'Sem data';
+          var act = document.createElement('div');
+          var ver = document.createElement('button'); ver.className = 'btn ghost'; ver.textContent = 'Ver';
+          ver.addEventListener('click', function(){ showModal(it); });
+          var conc = document.createElement('button'); conc.className = 'btn'; conc.textContent = 'Concluída';
+          conc.addEventListener('click', function(){ card.style.transition='opacity .22s ease'; card.style.opacity='0.25'; setTimeout(function(){ card.remove(); updateCount(); }, 220); });
+          act.appendChild(ver); act.appendChild(conc);
+          foot.appendChild(dt); foot.appendChild(act);
+          card.appendChild(top); card.appendChild(addr); card.appendChild(fields); card.appendChild(foot);
+          cards.appendChild(card);
+        });
+        updateCount();
+        document.getElementById('empty').style.display = (document.querySelectorAll('#cards .card').length ? 'none' : 'block');
+      }
+      function updateCount(){ document.getElementById('contadorTotal').textContent = 'Total: ' + document.querySelectorAll('#cards .card').length; }
+      filtro.addEventListener('change', render); search.addEventListener('input', render); render();
+    }
+    function showModal(it){
+      var modal = document.createElement('div'); modal.className = 'modal';
+      var content = document.createElement('div'); content.className = 'modal-content';
+      var h = document.createElement('h3'); h.textContent = 'Nota ' + (it.nota||''); content.appendChild(h);
+      function addField(label, value){
+        if(!value) return; var p = document.createElement('p'); var b = document.createElement('b'); b.textContent = label + ': '; p.appendChild(b); p.appendChild(document.createTextNode(value)); content.appendChild(p);
+      }
+      addField('Tipo de Serviço', it.tipo);
+      addField('Data de Vencimento', it.venc);
+      addField('Cidade', it.cidade);
+      addField('Bairro', it.bairro);
+      addField('Rua', it.rua);
+      addField('Carga', it.carga);
+      addField('De', it.de);
+      addField('Para', it.para);
+      addField('Cabo Cliente', it.cabocliente);
+      addField('Cabo Cosern', it.cabocosern);
+      addField('Disjuntor', it.disjuntor);
+      addField('Medidor', it.medidor);
+      var wrap = document.createElement('div'); wrap.style.textAlign='center'; wrap.style.marginTop='12px';
+      var btnClose = document.createElement('button'); btnClose.className='btn'; btnClose.textContent='Fechar';
+      btnClose.addEventListener('click', function(){ document.body.removeChild(modal); });
+      wrap.appendChild(btnClose); content.appendChild(wrap);
+      modal.appendChild(content);
+      modal.addEventListener('click', function(e){ if(e.target === modal) document.body.removeChild(modal); });
+      document.body.appendChild(modal);
+    }
+    document.addEventListener('DOMContentLoaded', buildCards);
+  </script>
+</div>
+../UTD_MOSSORO_PORTAL/index_matriz.html&#127968;</a>
+</body>
+</html>
